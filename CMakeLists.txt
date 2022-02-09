@@ -1,0 +1,21 @@
+cmake_minimum_required(VERSION 3.20.0)
+find_package(Zephyr REQUIRED HINTS $ENV{ZEPHYR_BASE})
+project(zephyr_teensy_app)
+
+# Add your source file to the "app" target. This must come after
+# find_package(Zephyr) which defines the target.
+target_sources(app PRIVATE src/main.c)
+#target_sources(app PRIVATE src/led.c)
+#target_sources(app PRIVATE src/pin.c)
+#target_sources(app PRIVATE src/button.c)
+#target_sources(app PRIVATE src/uart.c)
+#target_sources(app PRIVATE src/spi.c)
+target_sources(app PRIVATE src/sdhc.c)
+#target_sources(app PRIVATE src/dhcp.c)
+#target_sources(app PRIVATE src/valves.c)
+#target_sources(app PRIVATE src/relays.c)
+
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src)
+
+zephyr_code_relocate(src/*.c DTCM_DATA)
+zephyr_code_relocate(src/*.c ITCM_TEXT)
